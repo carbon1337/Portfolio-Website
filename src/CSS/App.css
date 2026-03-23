@@ -1,0 +1,190 @@
+.App {
+  text-align: center;
+}
+
+body {
+  background-color: #161618; /*background.main*/
+}
+
+.centered {
+  max-width: 2;
+  margin: auto;
+  height: 5;
+  align-self: center;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+  text-align: center;
+}
+
+.embed-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 aspect ratio (9 / 16 * 100) */
+}
+
+.embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.embed-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.about-image {
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.project-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-image {
+  object-fit: contain;
+  position: relative;
+
+  border-radius: 5px; /* Add border radius */
+  padding: 10px; /* Add padding */
+  
+  filter: blur(0px);
+  -webkit-filter: blur(0px);
+
+  z-index: 2;
+  max-width: 100%;
+  max-height: 100%;
+
+  transform: scale(100%);
+  
+
+  transition: all 0.25s ease-in-out;
+}
+
+.snippets-title {
+  justify-content: space-between;
+  display: inline-flex;
+  margin-right: auto;
+}
+
+.project-container:hover .project-image{
+  opacity: 20%;
+  transform: scale(105%);
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+.project-image:active {
+  opacity: 10%;
+  transform: scale(105%) translateY(-10%);
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+.project-container:hover .project-text {
+  opacity: 1;
+}
+
+.project-text {
+  position: absolute;
+  padding: 2px;
+  opacity: 0;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease-in-out;
+}
+
+.link-text {
+  color: #822CE4; /*primary.main*/
+  text-decoration: underline;
+  text-decoration-color: #370270;
+
+  transition: all 0.1s  ease-in-out;
+}
+
+.cover-image {
+  object-fit: cover;
+  position: relative;
+  opacity: 10%;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+
+  top: 50%;
+  left: 50%;
+}
+
+.contact-image {
+  object-fit: cover;
+  position: relative;
+
+  opacity: 100%;
+
+  z-index: 2;
+  max-width: 200%;
+  max-height: 200%;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  transition: all 0.2s ease-in-out;
+}
+
+.contact-image:hover {
+  opacity: 40%;
+}
+
+.link-text:hover {
+  opacity: 80%;
+}
+
+.vertical-line {
+  border-right: 5px solid #822CE4;
+  height: 225px;
+  width:30px;
+}
+
+/* Media query for mobile devices (adjust max-width as needed) */
+@media only screen and (max-width: 600px) {
+  .vertical-line {
+    display: none; /* Hide the div on mobile devices */
+  }
+}
+
+.carousel-button {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-button:hover {
+  opacity: .4;
+}
+
+/* Making the focused button bigger */
+/* Making the focused button bigger */
+.slick-active .project-image{
+  transform: scale(1); /* Increase size */
+  opacity: 1; /* Full opacity */
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Add transition */
+}
+
+.slick-slide:not(.slick-active) .project-image {
+  transform: scale(.8); /* Reduce size */
+  opacity: 0; /* Lowered opacity */
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Add transition */
+}
