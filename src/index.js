@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import reportWebVitals from './WeirdStuff/reportWebVitals';
+import reportWebVitals from './reportWebVitals';
 import {
   RouterProvider, createBrowserRouter,
   BrowserRouter as Router, Route, Routes
 } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 
-import Homepage from './Homepage.jsx';
-import Movemint from './Movemint.jsx';
-import DragonThief from './DragonThief.jsx';
-import TakinSouls from './TakinSouls.jsx';
-import BuffBee from './BuffBee.jsx';
-import HuntOfTheUndead from './HuntOfTheUndead.jsx';
+import Homepage from './Pages/Homepage.jsx';
+import Movemint from './Pages/Movemint.jsx';
+import DragonThief from './Pages/DragonThief.jsx';
+import TakinSouls from './Pages/TakinSouls.jsx';
+import BuffBee from './Pages/BuffBee.jsx';
+import HuntOfTheUndead from './Pages/HuntOfTheUndead.jsx';
 
 const theme = createTheme({
   palette: {

@@ -1,16 +1,17 @@
-import './CSS/App.css';
-import {Typography, Box, Button, Container, Grid } from '@mui/material'
-import ReusableAppBar from './ReusableAppBar';
+import '../Styles/App.css';
 import { Element } from 'react-scroll';
-import CoverImage from './Images/BuffBeeScreenshot (1).png';
-import Footer from './Footer';
-import ProjectTemplate from './ProjectTemplate';
-import gallery1 from './Images/BuffBeeScreenshot (1).png';
-import gallery2 from './Images/BuffBeeScreenshot (2).png'
-import gallery3 from './Images/BuffBeeScreenshot (3).png'
-import gallery4 from './Images/BuffBeeScreenshot (4).png'
-import gallery5 from './Images/BuffBeeScreenshot (5).png'
-import gallery6 from './Images/BuffBeeScreenshot (6).png'
+
+import ReusableAppBar from '../Components/UI/ReusableAppBar';
+import Footer from '../Components/Layout/Footer';
+import ProjectTemplate from '../Components/Projects/ProjectTemplate';
+
+import CoverImage from '../Assets/Images/BuffBeeScreenshot (1).png';
+import gallery1 from '../Assets/Images/BuffBeeScreenshot (1).png';
+import gallery2 from '../Assets/Images/BuffBeeScreenshot (2).png';
+import gallery3 from '../Assets/Images/BuffBeeScreenshot (3).png';
+import gallery4 from '../Assets/Images/BuffBeeScreenshot (4).png';
+import gallery5 from '../Assets/Images/BuffBeeScreenshot (5).png';
+import gallery6 from '../Assets/Images/BuffBeeScreenshot (6).png';
 
 function BuffBee() {
   return (

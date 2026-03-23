@@ -1,15 +1,19 @@
 import React from 'react';
-import { Container, Grid, Box } from '@mui/material';
 import { Link as ScrollLink } from 'react-scroll';
+
 import Slider from 'react-slick';
-import { ArrowBack, ArrowForward } from '@mui/icons-material'; // Import Material-UI Icons
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import ProjectButton from './Project Button'; // Import your ProjectButton component here
-import movemint from './Images/movemint logo.png'; // Import your images here
-import DragonThief from './Images/Dragon Thief Thumbnail.png';
-import TakinSouls from './Images/takin souls logo.png';
-import BuffBee from './Images/grah.png';
+
+import { Container, Grid, Box } from '@mui/material';
+import { ArrowBack, ArrowForward } from '@mui/icons-material';
+
+import ProjectButton from '../UI/ProjectButton';
+
+import movemint from '../../Assets/Images/movemint logo.png';
+import DragonThief from '../../Assets/Images/Dragon Thief Thumbnail.png';
+import TakinSouls from '../../Assets/Images/takin souls logo.png';
+import BuffBee from '../../Assets/Images/grah.png';
 
 const ProjectCarousel = ({ handleSetActive }) => {
 
@@ -19,8 +23,8 @@ const ProjectCarousel = ({ handleSetActive }) => {
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,
-        centerMode: false, // Enable center mode
-        centerPadding: '0', // Adjust the padding as needed
+        centerMode: false,
+        centerPadding: '0',
 
         responsive: [
           {

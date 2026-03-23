@@ -1,5 +1,6 @@
-import './CSS/App.css';
+import '../../Styles/App.css';
 import { Link } from 'react-router-dom';
+
 import { Typography } from '@mui/material';
 
 function ProjectButton(props) {

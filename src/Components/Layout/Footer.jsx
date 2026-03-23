@@ -1,9 +1,10 @@
-import './CSS/App.css';
-import React from 'react';
+import '../../Styles/App.css';
+
 import { Typography, Box, Container } from '@mui/material';
-import itch from './Images/itch.jpg';
-import youtube from './Images/youtube.png';
-import github from './Images/github.webp';
+
+import itch from '../../Assets/Images/itch.jpg';
+import youtube from '../../Assets/Images/youtube.png';
+import github from '../../Assets/Images/github.webp';
 
 function Footer() {
     return (

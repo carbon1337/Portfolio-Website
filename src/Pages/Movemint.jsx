@@ -1,14 +1,16 @@
-import './CSS/App.css';
-import ReusableAppBar from './ReusableAppBar';
+import '../Styles/App.css';
 import { Element } from 'react-scroll';
-import CoverImage from './Images/movemint cover.jpg';
-import Footer from './Footer';
-import ProjectTemplate from './ProjectTemplate';
-import gallery1 from './Images/movemint cover.jpg';
-import gallery2 from './Images/Before After URP.png'
-import gallery3 from './Images/movemint Screenshot 1.jpg'
-import gallery4 from './Images/movemint screenshot 3.jpg'
-import gallery5 from './Images/movemint screenshot 4.jpg'
+
+import ReusableAppBar from '../Components/UI/ReusableAppBar';
+import Footer from '../Components/Layout/Footer';
+import ProjectTemplate from '../Components/Projects/ProjectTemplate';
+
+import CoverImage from '../Assets/Images/movemint cover.jpg';
+import gallery1 from '../Assets/Images/movemint cover.jpg';
+import gallery2 from '../Assets/Images/Before After URP.png'
+import gallery3 from '../Assets/Images/movemint Screenshot 1.jpg'
+import gallery4 from '../Assets/Images/movemint screenshot 3.jpg'
+import gallery5 from '../Assets/Images/movemint screenshot 4.jpg'
 
 
 function movemint() {

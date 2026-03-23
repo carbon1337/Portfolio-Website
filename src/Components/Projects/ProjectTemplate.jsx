@@ -1,8 +1,10 @@
-import {Typography, Box, Container} from '@mui/material';
-import './CSS/App.css';
+import '../../Styles/App.css';
 import { Element } from 'react-scroll';
-import Slider from 'react-slick';
+
+import {Typography, Box, Container} from '@mui/material';
 import { ArrowBack, ArrowForward } from '@mui/icons-material'; // Import Material-UI Icons
+
+import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 

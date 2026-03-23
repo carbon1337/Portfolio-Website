@@ -1,16 +1,17 @@
-import './CSS/App.css';
-import {Typography, Box, Button, Container, Grid } from '@mui/material'
-import ReusableAppBar from './ReusableAppBar';
+import '../Styles/App.css';
 import { Element } from 'react-scroll';
-import CoverImage from './Images/Dragon Thief Cover.png';
-import Footer from './Footer';
-import ProjectTemplate from './ProjectTemplate';
-import gallery1 from './Images/ZombiesGame1.png';
-import gallery2 from './Images/Dragon Thief 2.jpg';
-import gallery3 from './Images/Dragon Thief 3.jpg';
-import gallery4 from './Images/Dragon Thief 4.jpg';
-import gallery5 from './Images/Dragon Thief 5.jpg';
-import gallery6 from './Images/Dragon Thief 6.jpg';
+
+import ReusableAppBar from '../Components/UI/ReusableAppBar';
+import Footer from '../Components/Layout/Footer';
+import ProjectTemplate from '../Components/Projects/ProjectTemplate';
+
+import CoverImage from '../Assets/Images/Dragon Thief Cover.png';
+import gallery1 from '../Assets/Images/ZombiesGame1.png';
+import gallery2 from '../Assets/Images/Dragon Thief 2.jpg';
+import gallery3 from '../Assets/Images/Dragon Thief 3.jpg';
+import gallery4 from '../Assets/Images/Dragon Thief 4.jpg';
+import gallery5 from '../Assets/Images/Dragon Thief 5.jpg';
+import gallery6 from '../Assets/Images/Dragon Thief 6.jpg';
 
 
 function HuntOfTheUndead() {

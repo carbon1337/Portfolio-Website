@@ -1,15 +1,16 @@
-import './CSS/App.css';
-import {Typography, Box, Button, Container, Grid } from '@mui/material'
-import ReusableAppBar from './ReusableAppBar';
+import '../Styles/App.css';
 import { Element } from 'react-scroll';
-import CoverImage from './Images/taking souls background.png';
-import Footer from './Footer';
-import ProjectTemplate from './ProjectTemplate';
-import gallery1 from './Images/googins screenshot 1.png'
-import gallery2 from './Images/googins screenshot 2.png'
-import gallery3 from './Images/googins menu.png'
-import gallery4 from './Images/Googins 1.jpg'
-import gallery5 from './Images/Googins 2.jpg'
+
+import ReusableAppBar from '../Components/UI/ReusableAppBar';
+import Footer from '../Components/Layout/Footer';
+import ProjectTemplate from '../Components/Projects/ProjectTemplate';
+
+import CoverImage from '../Assets/Images/taking souls background.png';
+import gallery1 from '../Assets/Images/googins screenshot 1.png'
+import gallery2 from '../Assets/Images/googins screenshot 2.png'
+import gallery3 from '../Assets/Images/googins menu.png'
+import gallery4 from '../Assets/Images/Googins 1.jpg'
+import gallery5 from '../Assets/Images/Googins 2.jpg'
 
 function TakinSouls() {
   return (

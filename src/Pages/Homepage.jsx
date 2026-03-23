@@ -1,23 +1,41 @@
-import './CSS/App.css';
+import '../Styles/App.css';
 import React, { useState, useEffect } from 'react';
-import {Typography, Box, Button, Container, Grid, useScrollTrigger, AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material'
+
+import {
+  Typography,
+  Box,
+  Button,
+  Container,
+  Grid,
+  useScrollTrigger,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+
 import props from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Link as ScrollLink, Element, Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
-import AboutImage from './Images/pfp2.png';
-import movemint from './Images/movemint logo.png';
-import codingsnippets from './Images/coding snippets.png';
-import DragonThief from './Images/Dragon Thief Thumbnail.png';
-import itch from './Images/itch.jpg';
-import Footer from './Footer';
-import ProjectButton from './Project Button';
-import ProjectCarousel from './ProjectCarousel';
-import tree from './Images/tree background.png'
-import MenuIcon from '@mui/icons-material/Menu';
-import youtube from './Images/youtube.png';
-import github from './Images/github.webp';
 
-import ZombiesThumbnail from './Images/ZombiesGame1.png'
+import Footer from '../Components/Layout/Footer';
+import ProjectButton from '../Components/UI/ProjectButton';
+import ProjectCarousel from '../Components/Projects/ProjectCarousel';
+
+// Images
+import tree from '../Assets/Images/tree background.png';
+import AboutImage from '../Assets/Images/pfp2.png';
+import movemint from '../Assets/Images/movemint logo.png';
+import codingsnippets from '../Assets/Images/coding snippets.png';
+import DragonThief from '../Assets/Images/Dragon Thief Thumbnail.png';
+import itch from '../Assets/Images/itch.jpg';
+import youtube from '../Assets/Images/youtube.png';
+import github from '../Assets/Images/github.webp';
+import ZombiesThumbnail from '../Assets/Images/ZombiesGame1.png';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
