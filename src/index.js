@@ -17,14 +17,14 @@ import HuntOfTheUndead from './Pages/HuntOfTheUndead.jsx';
 const theme = createTheme({
   palette: {
     background: {
-      main: "#161618",
-      alt: "#1A1A1B",
+      main: "#121116",
+      alt: "#121116",
     },
     primary: {
-      main: '#822CE4',
+      main: '#bcbcbc',
     },
     secondary: {
-      main: '#370270',
+      main: '#201f2b',
     },
     accent: {
       main: '#6B5A49',
@@ -33,28 +33,41 @@ const theme = createTheme({
     text: {
       main: '#D6D9DA',
       alt: '#8E8E8E',
+      link: '#f9c425',
     },
   },
   typography: {
     fontFamily: [
-      "Sora", 
+      "Google Sans Code", 
       "sans-serif"
     ].join(", "),
     h3: {
       fontFamily: [
-        "Archivo Black", 
+        "Google Sans Code", 
         "sans-serif",
       ].join(", "),
     },
     h4: {
       fontFamily: [
-        "Sora", 
+        "Google Sans Code", 
+        "sans-serif",
+      ].join(", "),
+    },
+    h5: {
+      fontFamily: [
+        "Google Sans Code", 
+        "sans-serif",
+      ].join(", "),
+    },
+    h7: {
+      fontFamily: [
+        "Google Sans Code", 
         "sans-serif",
       ].join(", "),
     },
     button: {
       fontFamily: [
-        "Sora", 
+        "Google Sans Code", 
         "sans-serif",
       ].join(", "),
     },

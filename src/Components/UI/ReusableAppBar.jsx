@@ -83,18 +83,6 @@ function ReusableAppBar(props) {
                 mx: { xs: 5, lg: 40 },
               }}
             >
-              <Link to="/">
-                <Box>
-                  <Typography
-                    sx={{
-                      fontSize: { xs: '1.5rem', lg: '2rem' },
-                      color: 'primary.main',
-                    }}
-                  >
-                    Riley Clarke
-                  </Typography>
-                </Box>
-              </Link>
 
               {/* Mobile Menu */}
               <IconButton

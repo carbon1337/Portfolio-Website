@@ -14,28 +14,19 @@ import {
   Drawer,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Link as MuiLink
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import props from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Link as ScrollLink, Element, Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
+import { Link as RouterLink } from 'react-router-dom';
+import { Link as ScrollLink, Element, Events, scrollSpy } from 'react-scroll';
 
 import Footer from '../Components/Layout/Footer';
-import ProjectButton from '../Components/UI/ProjectButton';
 import ProjectCarousel from '../Components/Projects/ProjectCarousel';
 
 // Images
-import tree from '../Assets/Images/tree background.png';
 import AboutImage from '../Assets/Images/pfp2.png';
-import movemint from '../Assets/Images/movemint logo.png';
-import codingsnippets from '../Assets/Images/coding snippets.png';
-import DragonThief from '../Assets/Images/Dragon Thief Thumbnail.png';
-import itch from '../Assets/Images/itch.jpg';
-import youtube from '../Assets/Images/youtube.png';
-import github from '../Assets/Images/github.webp';
-import ZombiesThumbnail from '../Assets/Images/ZombiesGame1.png';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -69,9 +60,7 @@ function App() {
     console.log(to);
   };
 
-  function ElevationScroll(props) {
-    const { children } = props;
-
+  function ElevationScroll({ children }) {
     const trigger = useScrollTrigger({
       disableHysteresis: true,
       threshold: 0,
@@ -89,27 +78,57 @@ function App() {
     { label: 'Contact', to: 'contact' },
   ];
 
-  return (
-    <main>
-      {/*App bar*/}
-      <Container maxWidth="xl">
-        <ElevationScroll {...props}>
-          <AppBar className="appbar" elevation={0} sx={{ bgcolor: 'background.main', mb: 15 }}>
-            <Toolbar sx={{ justifyContent: 'space-between', marginBlock: 1, mx: { xs: 5, lg: 40 } }}>
-              {/* Name */}
-              <Link to="/">
-                <Box>
-                  <Typography
-                    sx={{
-                      fontSize: { xs: '1.5rem', lg: '2rem' },
-                      color: 'primary.main',
-                    }}
-                  >
-                    Riley Clarke
-                  </Typography>
-                </Box>
-              </Link>
+  const socialLinkSx = {
+    position: 'relative',
+    color: 'text.link',
+    fontSize: '0.95rem',
+    textDecoration: 'none',
+    transition: 'color 0.2s ease',
+    '&:hover': {
+      color: 'text.main',
+    },
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      left: 0,
+      bottom: -2,
+      width: '100%',
+      height: '1px',
+      backgroundColor: 'currentColor',
+      transform: 'scaleX(0)',
+      transformOrigin: 'center',
+      transition: 'transform 0.25s ease',
+    },
+    '&:hover::after': {
+      transform: 'scaleX(1)',
+    },
+  };
 
+  return (
+    <main style={{ width: '100%', overflowX: 'hidden' }}>
+      {/* App bar */}
+      <Container maxWidth="xl" disableGutters sx={{ overflowX: 'hidden' }}>
+        <ElevationScroll>
+          <AppBar
+            className="appbar"
+            elevation={0}
+            sx={{
+              bgcolor: 'background.main',
+              mb: 15,
+              width: '100%',
+              left: 0,
+              right: 0,
+            }}
+          >
+            <Toolbar
+              sx={{
+                justifyContent: 'flex-end',
+                marginBlock: 1,
+                px: { xs: 2, sm: 4, lg: 10 },
+                width: '100%',
+                boxSizing: 'border-box',
+              }}
+            >
               {/* Mobile Menu */}
               <IconButton
                 color="inherit"
@@ -134,7 +153,7 @@ function App() {
                     duration={1000}
                     onSetActive={handleSetActive}
                   >
-                    <Link to='/'>
+                    <RouterLink to="/" style={{ textDecoration: 'none' }}>
                       <Button
                         sx={{
                           '&:hover': {
@@ -143,7 +162,7 @@ function App() {
                         }}
                       >
                         <Typography
-                          variant='button'
+                          variant="button"
                           sx={{
                             fontSize: { xs: '1rem', lg: '1.2rem' },
                             color: 'primary.main',
@@ -152,7 +171,7 @@ function App() {
                           {item.label}
                         </Typography>
                       </Button>
-                    </Link>
+                    </RouterLink>
                   </ScrollLink>
                 ))}
               </Box>
@@ -167,7 +186,7 @@ function App() {
         open={isMobileMenuOpen}
         onClose={closeMobileMenu}
       >
-        <List sx={{bgcolor:'background.main'}}>
+        <List sx={{ bgcolor: 'background.main' }}>
           {menuItems.map((item, index) => (
             <ScrollLink
               key={index}
@@ -179,106 +198,249 @@ function App() {
               duration={1000}
               onSetActive={handleSetActive}
             >
-              <ListItem button onClick={closeMobileMenu} sx={{borderColor:'background.main', bgcolor:'background.alt',  border:2}}>
-                <ListItemText primary={item.label} sx={{color:'text.main'}} />
+              <ListItem
+                button
+                onClick={closeMobileMenu}
+                sx={{
+                  borderColor: 'background.main',
+                  bgcolor: 'background.alt',
+                  border: 2,
+                  boxSizing: 'border-box',
+                }}
+              >
+                <ListItemText primary={item.label} sx={{ color: 'text.main' }} />
               </ListItem>
             </ScrollLink>
           ))}
         </List>
       </Drawer>
 
-      {/*Section 1: Home*/}
-      <Element name='home'>
-        <Box sx={{width:'100%', height: 'auto', mt: 20, bgcolor: 'background.main', textAlign:'center'}}>
-          <Typography variant ='h5' sx={{color: 'text.alt'}}>
-            RILEY CLARKE
-          </Typography>
-          <Container justifyContent='center'>
-
-          </Container>
-          <Typography variant ='h3' sx={{color: 'text.main', mb:1}}>
-            Game Developer
-          </Typography>
-
-          <Box className='centered' sx={{borderTop: 5, borderColor: 'primary.main', mt: 2, maxWidth: 450, width: 'auto'}} />
-
-          <Container>
-            <Typography variant ='h6' sx={{color: 'text.alt', mt:3}}>
-              For the past 3 years, I've been developing projects in Unity, primarily as a Game Designer and Programmer. 
+      {/* Section 1: Home */}
+      <Element name="home">
+        <Box
+          sx={{
+            width: '100%',
+            mt: 16,
+            px: { xs: 3, sm: 5, md: 8 },
+            bgcolor: 'background.main',
+            display: 'flex',
+            justifyContent: 'center',
+            boxSizing: 'border-box',
+          }}
+        >
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: '600px',
+              textAlign: 'center',
+              boxSizing: 'border-box',
+            }}
+          >
+            <Typography
+              variant="h3"
+              sx={{
+                color: 'text.main',
+                fontWeight: 600,
+                mb: 2,
+              }}
+            >
+              Riley Clarke
             </Typography>
-            <Typography variant ='h6' sx={{color: 'text.alt'}}>
-              I am consistantly driven to learn new concepts and expand my skillset.
+
+            <Typography
+              variant="h6"
+              sx={{
+                color: 'text.main',
+                fontWeight: 500,
+                mb: 2,
+              }}
+            >
+              Unity C# Developer | Game Designer
             </Typography>
-            <Container>
-              <div className='centered-container'>
-                <Box sx={{width:'80%', borderRadius:3, maxHeight:500, height: 'auto', mt: 15, mb:10, py: 5, bgcolor:'background.alt'}}>
-                    <Typography variant ='h6' sx={{color: 'text.alt', py:2}}>
-                      Useful Links:
-                    </Typography>
-                  <div className='centered-container'>
-                    <div>
 
-                    <Grid className='centered-container' container spacing={2}>
-                      <Grid item xs={12} md={4}>
-                        <Box sx={{height:125, mx: 2, borderRadius:3, bgcolor:'background.alt', width:200, overflow: 'hidden'}}>
-                          <a href='https://carbonwastaken.itch.io/' target="_blank" rel="noopener noreferrer"><img src={itch}className='contact-image'></img></a>
-                        </Box>
-                      </Grid>
+            <Typography
+              sx={{
+                color: 'text.alt',
+                fontSize: '1.05rem',
+                lineHeight: 1.8,
+                mb: 2,
+              }}
+            >
+              I’m a Unity developer from Winnipeg focused on building immersive gameplay
+              systems, player interaction, and experiences that feel memorable to play.
+            </Typography>
 
-                      <Grid item xs={12} md={4}>
-                        <Box sx={{height:125, mx: 2, borderRadius:3, bgcolor:'background.alt', width:200, overflow: 'hidden'}}>
-                            <a href='https://www.youtube.com/channel/UCgrywDMG1hTRvezDdgQBJAQ' target="_blank" rel="noopener noreferrer"><img src={youtube}className='contact-image'></img></a>
-                        </Box>
-                      </Grid>
+            <Typography
+              sx={{
+                color: 'text.alt',
+                fontSize: '1.05rem',
+                lineHeight: 1.8,
+                mb: 5,
+              }}
+            >
+              I’m especially interested in the small details that make games feel great
+              through movement, feedback, tension, atmosphere, and polish.
+            </Typography>
 
-                      <Grid item xs={12} md={4}>
-                        <Box sx={{height:125, mx: 2, borderRadius:3, bgcolor:'background.alt', width:200, overflow: 'hidden'}}>
-                            <a href='https://github.com/carbon1337' target="_blank" rel="noopener noreferrer"><img src={github}className='contact-image'></img></a>
-                        </Box>
-                      </Grid>
-                    </Grid>
-                    </div>
-                  </div>
-                </Box>
-              </div>
-            </Container>
+            <Box sx={{ mb: 6 }}>
+              <Typography sx={{ color: 'text.alt', fontSize: '0.95rem' }}>
+                <MuiLink
+                  href="https://github.com/carbon1337"
+                  target="_blank"
+                  rel="noreferrer"
+                  underline="none"
+                  sx={socialLinkSx}
+                >
+                  GitHub
+                </MuiLink>
+                {' · '}
+                <MuiLink
+                  href="https://rileyclarke.itch.io"
+                  target="_blank"
+                  rel="noreferrer"
+                  underline="none"
+                  sx={socialLinkSx}
+                >
+                  Itch
+                </MuiLink>
+                {' · '}
+                <MuiLink
+                  href="mailto:24clarkr@gmail.com"
+                  underline="none"
+                  sx={socialLinkSx}
+                >
+                  Email
+                </MuiLink>
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                width: '100%',
+                borderRadius: 3,
+                py: 4,
+                px: { xs: 2, sm: 3, md: 4 },
+                bgcolor: 'background.alt',
+                boxSizing: 'border-box',
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{
+                  color: 'text.main',
+                  fontWeight: 600,
+                  mb: 2,
+                }}
+              >
+                Most Recent Project
+              </Typography>
+
+              {/* add project video */}
+            </Box>
+          </Box>
+        </Box>
+      </Element>
+
+      <Element name="projects">
+        {/* Section 2: Projects */}
+        <Box
+          sx={{
+            width: '100%',
+            height: 'auto',
+            bgcolor: 'background.alt',
+            textAlign: 'center',
+            boxSizing: 'border-box',
+            overflowX: 'hidden',
+          }}
+        >
+          <Typography variant="h3" sx={{ color: 'text.main', pt: 10 }}>
+            Projects
+          </Typography>
+
+          <Box
+            className="centered"
+            sx={{
+              borderTop: 2.5,
+              borderColor: 'primary.main',
+              mt: 2,
+              width: '100%',
+              maxWidth: 400,
+              pb: 10,
+              mx: 'auto',
+              boxSizing: 'border-box',
+            }}
+          />
+
+          <Container maxWidth="lg" sx={{ pb: 8, boxSizing: 'border-box' }}>
+            <ProjectCarousel />
           </Container>
         </Box>
       </Element>
 
-      <Element name='projects'>
-      {/*Section 2: Projects*/}
-      <Box sx={{width:'100%', height: 'auto', bgcolor: 'background.alt', textAlign:'center'}}>
-        <Typography variant ='h3' sx={{color: 'text.main', pt: 10,}}>
-          Projects
-        </Typography>
-        <Box className='centered' sx={{borderTop: 2.5, borderColor: 'primary.main', mt: 2, width: 'auto', maxWidth: 400, pb: 10}} />
-        <Container sx={{maxwidth: '75%', pb: 8}}>
-          <ProjectCarousel />
-        </Container>
-      </Box>
-      </Element>
+      {/* Section 3: About Me */}
+      <Element name="about">
+        <Box
+          sx={{
+            width: '100%',
+            height: 'auto',
+            minHeight: 900,
+            bgcolor: 'background.main',
+            textAlign: 'center',
+            p: 3,
+            boxSizing: 'border-box',
+            overflowX: 'hidden',
+          }}
+        >
+          <Typography variant="h3" sx={{ color: 'text.main', pt: 10 }}>
+            About Me
+          </Typography>
 
-      {/*Section 3: About Me*/}
-      <Element name='about'>
-      <Box sx={{width:'100%', width:'auto', height:'auto', minHeight: 900, bgcolor: 'background.main', textAlign:'center', p:3}}>
-        <Typography variant ='h3' sx={{color: 'text.main', pt: 10,}}>
-          About Me
-        </Typography>
-        <Box className='centered' sx={{borderTop: 2.5, borderColor: 'primary.main', mt: 1, width: 'auto', maxWidth: 400, pb: 5}} />
+          <Box
+            className="centered"
+            sx={{
+              borderTop: 2.5,
+              borderColor: 'primary.main',
+              mt: 1,
+              width: '100%',
+              maxWidth: 400,
+              pb: 5,
+              mx: 'auto',
+              boxSizing: 'border-box',
+            }}
+          />
 
-        <Container maxWidth='md'>
-            <Grid justifyContent='center' container spacing={4} sx={{my:3}}>
+          <Container maxWidth="md" sx={{ boxSizing: 'border-box' }}>
+            <Grid justifyContent="center" container spacing={4} sx={{ my: 3 }}>
               <Grid item xs={12} md={5}>
-                <Box sx={{maxWidth: {xs:'90%', md:'100%'}, width:'auto', borderRadius:3, height:'auto', bgcolor:'background.alt', overflow:'hidden'}}>
-                  <div className='centered-container'>
-
-                  <img className='about-image' src={AboutImage}></img>
+                <Box
+                  sx={{
+                    width: '100%',
+                    borderRadius: 3,
+                    height: 'auto',
+                    bgcolor: 'background.alt',
+                    overflow: 'hidden',
+                    boxSizing: 'border-box',
+                  }}
+                >
+                  <div className="centered-container">
+                    <img className="about-image" src={AboutImage} alt="Riley Clarke" />
                   </div>
                 </Box>
-                <Box sx={{maxWidth: {xs:'90%', md:'100%'}, width:'auto', borderRadius:3, mt:2.5, height: 'auto', minHeight:175, bgcolor:'background.alt', overflow:'hidden'}}>
-                  <div className='centered-container'>
-                    <Typography sx={{px:3, py:2, color: 'text.main'}}>
+
+                <Box
+                  sx={{
+                    width: '100%',
+                    borderRadius: 3,
+                    mt: 2.5,
+                    height: 'auto',
+                    minHeight: 175,
+                    bgcolor: 'background.alt',
+                    overflow: 'hidden',
+                    boxSizing: 'border-box',
+                  }}
+                >
+                  <div className="centered-container">
+                    <Typography sx={{ px: 3, py: 2, color: 'text.main' }}>
                       My favourite games:
                       <ul>
                         <li>Elden Ring</li>
@@ -292,46 +454,55 @@ function App() {
               </Grid>
 
               <Grid item xs={12} md={7}>
-                <Box sx={{maxWidth: {xs:'90%', md:'100%'}, width:'auto', height:'auto', borderRadius:3, minHeight:600, bgcolor:'background.alt', textAlign: 'left'}}>
-                  <Typography sx={{px:3, py:2, color: 'text.main'}}>
+                <Box
+                  sx={{
+                    width: '100%',
+                    height: 'auto',
+                    borderRadius: 3,
+                    minHeight: 600,
+                    bgcolor: 'background.alt',
+                    textAlign: 'left',
+                    boxSizing: 'border-box',
+                  }}
+                >
+                  <Typography sx={{ px: 3, py: 2, color: 'text.main' }}>
                     Hello! I'm Riley Clarke, a 17 year old Game Developer based in Winnipeg, Canada.
                   </Typography>
 
-                  <Typography sx={{px:3, pb:2, color: 'text.main'}}>
+                  <Typography sx={{ px: 3, pb: 2, color: 'text.main' }}>
                     I am currently attending my senior year of high school, majoring in Interactive Digital Media.
                     While in the IDM course, I've gained experience developing games both in small teams and working solo.
                   </Typography>
 
-                  <Typography sx={{px:3, pb:2, color: 'text.main'}}>
+                  <Typography sx={{ px: 3, pb: 2, color: 'text.main' }}>
                     To go with my developing, I've picked up some skills to aid my game design process. I've studied graphic design, music production, and sound design.
                     My dream is to one day combine all of my skills to create a game solely by myself.
                   </Typography>
 
-                  <Typography sx={{px:3, pb:2, color: 'text.main'}}>
+                  <Typography sx={{ px: 3, pb: 2, color: 'text.main' }}>
                     I am always interested in expanding my skillset, and learning new techniques.
                     Recently, I've been participating in game jams to sharpen my skills in coding and design.
                   </Typography>
 
-                  <Typography sx={{px:3, pb:2, color: 'text.main'}}>
-                   As a kid I always loved videogames. I got my first computer when I was 10 years old and have been playing ever since.
-                   To be able to contribute to what was a huge portion of my childhood is a huge passion for me.
+                  <Typography sx={{ px: 3, pb: 2, color: 'text.main' }}>
+                    As a kid I always loved videogames. I got my first computer when I was 10 years old and have been playing ever since.
+                    To be able to contribute to what was a huge portion of my childhood is a huge passion for me.
                   </Typography>
 
-                  <Typography sx={{px:3, pb:2, color: 'text.main'}}>
+                  <Typography sx={{ px: 3, pb: 2, color: 'text.main' }}>
                     I hope that one day a game that I make inspires other kids the same way that I was.
                   </Typography>
                 </Box>
               </Grid>
             </Grid>
           </Container>
-      </Box>
+        </Box>
       </Element>
 
-      {/*Section 4: Contact Me*/}
-      <Element name='contact'>
+      {/* Section 4: Contact Me */}
+      <Element name="contact">
         <Footer />
       </Element>
-
     </main>
   );
 }
