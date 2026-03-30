@@ -27,6 +27,7 @@ import ProjectCarousel from '../Components/Projects/ProjectCarousel';
 
 // Images
 import AboutImage from '../Assets/Images/pfp2.png';
+import HeroGif from '../Assets/Images/TEST.gif';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -49,7 +50,7 @@ function App() {
   }, []);
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setIsMobileMenuOpen((prev) => !prev);
   };
 
   const closeMobileMenu = () => {
@@ -106,7 +107,7 @@ function App() {
 
   return (
     <main style={{ width: '100%', overflowX: 'hidden' }}>
-      {/* App bar */}
+      {/* App Bar */}
       <Container maxWidth="xl" disableGutters sx={{ overflowX: 'hidden' }}>
         <ElevationScroll>
           <AppBar
@@ -114,7 +115,6 @@ function App() {
             elevation={0}
             sx={{
               bgcolor: 'background.main',
-              mb: 15,
               width: '100%',
               left: 0,
               right: 0,
@@ -181,11 +181,7 @@ function App() {
       </Container>
 
       {/* Mobile Drawer Menu */}
-      <Drawer
-        anchor="top"
-        open={isMobileMenuOpen}
-        onClose={closeMobileMenu}
-      >
+      <Drawer anchor="top" open={isMobileMenuOpen} onClose={closeMobileMenu}>
         <List sx={{ bgcolor: 'background.main' }}>
           {menuItems.map((item, index) => (
             <ScrollLink
@@ -219,70 +215,132 @@ function App() {
       <Element name="home">
         <Box
           sx={{
+            position: 'relative',
             width: '100%',
-            mt: 16,
-            px: { xs: 3, sm: 5, md: 8 },
+            minHeight: { xs: 520, md: 640 },
+            mt: 10,
+            overflow: 'hidden',
             bgcolor: 'background.main',
-            display: 'flex',
-            justifyContent: 'center',
-            boxSizing: 'border-box',
           }}
         >
+          {/* Hero GIF */}
+          <Box
+            component="img"
+            src={HeroGif}
+            alt="Hero background"
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              opacity: 0.22,
+              pointerEvents: 'none',
+              userSelect: 'none',
+            }}
+          />
+
+          {/* Dark overlay */}
           <Box
             sx={{
-              width: '100%',
-              maxWidth: '600px',
-              textAlign: 'center',
+              position: 'absolute',
+              inset: 0,
+              bgcolor: 'rgba(0, 0, 0, 0.12)',
+              pointerEvents: 'none',
+            }}
+          />
+
+          {/* Fade into background */}
+          <Box
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              pointerEvents: 'none',
+              background: `
+                radial-gradient(
+                  ellipse 110% 70% at 50% 18%,
+                  rgba(18, 17, 22, 0) 0%,
+                  rgba(18, 17, 22, 0.06) 28%,
+                  rgba(18, 17, 22, 0.18) 45%,
+                  rgba(18, 17, 22, 0.42) 62%,
+                  rgba(18, 17, 22, 0.78) 80%,
+                  #121116 100%
+                )
+              `,
+            }}
+          />
+
+          {/* Hero Content */}
+          <Box
+            sx={{
+              position: 'relative',
+              zIndex: 1,
+              minHeight: { xs: 520, md: 640 },
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              px: { xs: 3, sm: 5, md: 8 },
+              pb: { xs: 10, md: 14 },
               boxSizing: 'border-box',
             }}
           >
-            <Typography
-              variant="h3"
+            <Box
               sx={{
-                color: 'text.main',
-                fontWeight: 600,
-                mb: 2,
+                width: '100%',
+                maxWidth: 720,
+                textAlign: 'center',
               }}
             >
-              Riley Clarke
-            </Typography>
+              <Typography
+                variant="h3"
+                sx={{
+                  color: 'text.main',
+                  fontWeight: 700,
+                  letterSpacing: '0.5px',
+                  mb: 2,
+                }}
+              >
+                Riley Clarke
+              </Typography>
 
-            <Typography
-              variant="h6"
-              sx={{
-                color: 'text.main',
-                fontWeight: 500,
-                mb: 2,
-              }}
-            >
-              Unity C# Developer | Game Designer
-            </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  color: 'text.main',
+                  fontWeight: 500,
+                  mb: 2,
+                }}
+              >
+                Unity C# Developer | Game Designer
+              </Typography>
 
-            <Typography
-              sx={{
-                color: 'text.alt',
-                fontSize: '1.05rem',
-                lineHeight: 1.8,
-                mb: 2,
-              }}
-            >
-              I’m a Unity developer from Winnipeg focused on building immersive gameplay
-              systems, player interaction, and experiences that feel memorable to play.
-            </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  color: 'text.alt',
+                  fontSize: { xs: '1rem', md: '1.15rem' },
+                  lineHeight: 1.8,
+                  mb: 2,
+                }}
+              >
+                I’m a Unity developer from Winnipeg focused on building immersive gameplay
+                systems, player interaction, and experiences that feel memorable to play.
+              </Typography>
 
-            <Typography
-              sx={{
-                color: 'text.alt',
-                fontSize: '1.05rem',
-                lineHeight: 1.8,
-                mb: 5,
-              }}
-            >
-              I’m especially interested in the small details that make games feel great
-              through movement, feedback, tension, atmosphere, and polish.
-            </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  color: 'text.alt',
+                  fontSize: { xs: '1rem', md: '1.15rem' },
+                  lineHeight: 1.8,
+                  mb: 5,
+                }}
+              >
+                I’m especially interested in the small details that make games feel great
+                through movement, feedback, tension, atmosphere, and polish.
+              </Typography>
 
-            <Box sx={{ mb: 6 }}>
               <Typography sx={{ color: 'text.alt', fontSize: '0.95rem' }}>
                 <MuiLink
                   href="https://github.com/carbon1337"
@@ -313,36 +371,12 @@ function App() {
                 </MuiLink>
               </Typography>
             </Box>
-
-            <Box
-              sx={{
-                width: '100%',
-                borderRadius: 3,
-                py: 4,
-                px: { xs: 2, sm: 3, md: 4 },
-                bgcolor: 'background.alt',
-                boxSizing: 'border-box',
-              }}
-            >
-              <Typography
-                variant="h6"
-                sx={{
-                  color: 'text.main',
-                  fontWeight: 600,
-                  mb: 2,
-                }}
-              >
-                Most Recent Project
-              </Typography>
-
-              {/* add project video */}
-            </Box>
           </Box>
         </Box>
       </Element>
 
+      {/* Section 2: Projects */}
       <Element name="projects">
-        {/* Section 2: Projects */}
         <Box
           sx={{
             width: '100%',
@@ -363,15 +397,13 @@ function App() {
               borderTop: 2.5,
               borderColor: 'primary.main',
               mt: 2,
-              width: '100%',
-              maxWidth: 400,
+              width: 400,
+              maxWidth: '90%',
               pb: 10,
-              mx: 'auto',
-              boxSizing: 'border-box',
             }}
           />
 
-          <Container maxWidth="lg" sx={{ pb: 8, boxSizing: 'border-box' }}>
+          <Container maxWidth="lg" sx={{ pb: 8 }}>
             <ProjectCarousel />
           </Container>
         </Box>
@@ -401,15 +433,13 @@ function App() {
               borderTop: 2.5,
               borderColor: 'primary.main',
               mt: 1,
-              width: '100%',
-              maxWidth: 400,
+              width: 400,
+              maxWidth: '90%',
               pb: 5,
-              mx: 'auto',
-              boxSizing: 'border-box',
             }}
           />
 
-          <Container maxWidth="md" sx={{ boxSizing: 'border-box' }}>
+          <Container maxWidth="md">
             <Grid justifyContent="center" container spacing={4} sx={{ my: 3 }}>
               <Grid item xs={12} md={5}>
                 <Box
@@ -419,7 +449,6 @@ function App() {
                     height: 'auto',
                     bgcolor: 'background.alt',
                     overflow: 'hidden',
-                    boxSizing: 'border-box',
                   }}
                 >
                   <div className="centered-container">
@@ -432,11 +461,9 @@ function App() {
                     width: '100%',
                     borderRadius: 3,
                     mt: 2.5,
-                    height: 'auto',
                     minHeight: 175,
                     bgcolor: 'background.alt',
                     overflow: 'hidden',
-                    boxSizing: 'border-box',
                   }}
                 >
                   <div className="centered-container">
@@ -457,12 +484,10 @@ function App() {
                 <Box
                   sx={{
                     width: '100%',
-                    height: 'auto',
                     borderRadius: 3,
                     minHeight: 600,
                     bgcolor: 'background.alt',
                     textAlign: 'left',
-                    boxSizing: 'border-box',
                   }}
                 >
                   <Typography sx={{ px: 3, py: 2, color: 'text.main' }}>
@@ -499,7 +524,7 @@ function App() {
         </Box>
       </Element>
 
-      {/* Section 4: Contact Me */}
+      {/* Section 4: Contact */}
       <Element name="contact">
         <Footer />
       </Element>
