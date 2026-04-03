@@ -109,10 +109,10 @@ function ReusableAppBar(props) {
                   >
                     <Button onClick={item.to === '/' ? scrollToTop : closeMobileMenu}>
                       <Typography
-                        variant="button"
+                        variant="h6"
                         sx={{
                           fontSize: { xs: '1rem', lg: '1.2rem' },
-                          color: 'primary.main',
+                          color: 'text.main',
                         }}
                       >
                         {item.label}

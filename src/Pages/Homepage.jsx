@@ -27,7 +27,7 @@ import ProjectCarousel from '../Components/Projects/ProjectCarousel';
 
 // Images
 import AboutImage from '../Assets/Images/pfp2.png';
-import HeroGif from '../Assets/Images/TEST.gif';
+import HeroGif from '../Assets/Gifs/Projects.gif';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -153,25 +153,29 @@ function App() {
                     duration={1000}
                     onSetActive={handleSetActive}
                   >
-                    <RouterLink to="/" style={{ textDecoration: 'none' }}>
-                      <Button
+                    <Button
+                      sx={{
+                        borderBottom:1,
+                        borderColor:'text.link',
+                        mx:2,
+                        px:2,
+                        variant:'text',
+                        typography:'h1',
+                        '&:hover': {
+                          backgroundColor: 'primary.light',
+                        },
+                      }}
+                    >
+                      <Typography
+                        variant="button"
                         sx={{
-                          '&:hover': {
-                            backgroundColor: 'primary.light',
-                          },
+                          fontSize: { xs: '1rem', lg: '1.2rem' },
+                          color: 'primary.main',
                         }}
                       >
-                        <Typography
-                          variant="button"
-                          sx={{
-                            fontSize: { xs: '1rem', lg: '1.2rem' },
-                            color: 'primary.main',
-                          }}
-                        >
-                          {item.label}
-                        </Typography>
-                      </Button>
-                    </RouterLink>
+                        {item.label}
+                      </Typography>
+                    </Button>
                   </ScrollLink>
                 ))}
               </Box>
@@ -214,10 +218,11 @@ function App() {
       {/* Section 1: Home */}
       <Element name="home">
         <Box
+          component="section"
           sx={{
             position: 'relative',
             width: '100%',
-            minHeight: { xs: 520, md: 640 },
+            minHeight: { xs: 720, md: 840 },
             mt: 10,
             overflow: 'hidden',
             bgcolor: 'background.main',
@@ -235,9 +240,10 @@ function App() {
               height: '100%',
               objectFit: 'cover',
               objectPosition: 'center',
-              opacity: 0.22,
+              opacity: 0.2,
               pointerEvents: 'none',
               userSelect: 'none',
+              filter: 'blur(8px)',
             }}
           />
 
@@ -272,7 +278,8 @@ function App() {
           />
 
           {/* Hero Content */}
-          <Box
+          <Container
+            maxWidth="md"
             sx={{
               position: 'relative',
               zIndex: 1,
@@ -280,18 +287,12 @@ function App() {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              textAlign: 'center',
               px: { xs: 3, sm: 5, md: 8 },
-              pb: { xs: 10, md: 14 },
-              boxSizing: 'border-box',
+              pb: { xs: 10, md: 0 },
             }}
           >
-            <Box
-              sx={{
-                width: '100%',
-                maxWidth: 720,
-                textAlign: 'center',
-              }}
-            >
+            <Box sx={{ width: '100%', maxWidth: 720 }}>
               <Typography
                 variant="h3"
                 sx={{
@@ -305,7 +306,7 @@ function App() {
               </Typography>
 
               <Typography
-                variant="h6"
+                variant="h5"
                 sx={{
                   color: 'text.main',
                   fontWeight: 500,
@@ -316,10 +317,9 @@ function App() {
               </Typography>
 
               <Typography
-                variant="h6"
                 sx={{
                   color: 'text.alt',
-                  fontSize: { xs: '1rem', md: '1.15rem' },
+                  fontSize: { xs: '1rem', md: '1.35rem' },
                   lineHeight: 1.8,
                   mb: 2,
                 }}
@@ -329,10 +329,9 @@ function App() {
               </Typography>
 
               <Typography
-                variant="h6"
                 sx={{
                   color: 'text.alt',
-                  fontSize: { xs: '1rem', md: '1.15rem' },
+                  fontSize: { xs: '1rem', md: '1.35rem' },
                   lineHeight: 1.8,
                   mb: 5,
                 }}
@@ -341,7 +340,17 @@ function App() {
                 through movement, feedback, tension, atmosphere, and polish.
               </Typography>
 
-              <Typography sx={{ color: 'text.alt', fontSize: '0.95rem' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 1.25,
+                  flexWrap: 'wrap',
+                  color: 'text.alt',
+                  fontSize: '0.95rem',
+                }}
+              >
                 <MuiLink
                   href="https://github.com/carbon1337"
                   target="_blank"
@@ -349,9 +358,15 @@ function App() {
                   underline="none"
                   sx={socialLinkSx}
                 >
-                  GitHub
+                  <Typography variant='h6' component="span">
+                    GitHub
+                  </Typography>
                 </MuiLink>
-                {' · '}
+
+                <Typography component="span" sx={{ color: 'text.alt' }}>
+                  ·
+                </Typography>
+
                 <MuiLink
                   href="https://rileyclarke.itch.io"
                   target="_blank"
@@ -359,19 +374,27 @@ function App() {
                   underline="none"
                   sx={socialLinkSx}
                 >
-                  Itch
+                  <Typography variant='h6' component="span">
+                    Itch.io
+                  </Typography>
                 </MuiLink>
-                {' · '}
+
+                <Typography component="span" sx={{ color: 'text.alt' }}>
+                  ·
+                </Typography>
+
                 <MuiLink
                   href="mailto:24clarkr@gmail.com"
                   underline="none"
                   sx={socialLinkSx}
                 >
-                  Email
+                  <Typography variant='h6' component="span">
+                    Email
+                  </Typography>
                 </MuiLink>
-              </Typography>
+              </Box>
             </Box>
-          </Box>
+          </Container>
         </Box>
       </Element>
 

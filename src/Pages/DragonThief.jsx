@@ -12,47 +12,162 @@ import gallery3 from '../Assets/Images/Dragon Thief 3.jpg';
 import gallery4 from '../Assets/Images/Dragon Thief 4.jpg';
 import gallery5 from '../Assets/Images/Dragon Thief 5.jpg';
 import gallery6 from '../Assets/Images/Dragon Thief 6.jpg';
-
+import HeroGif from '../Assets/Gifs/Projects.gif';
 
 function DragonThief() {
   return (
     <main>
-      {/*App bar*/}
       <ReusableAppBar />
 
-      {/*Section 1: Header*/}
-        <ProjectTemplate 
+      <ProjectTemplate
         CoverImageSRC={CoverImage}
+        HeroGif={HeroGif}
         ProjectTitle="The Dragon Thief"
-        ProjectDescription="A Top-Down Roguelike dungeon crawler made for MiniJam151: Dragons"
+        ProjectSummary="A top-down roguelike dungeon crawler created in Unity for MiniJam151: Dragons. This project was built in 72 hours and demonstrates my work in gameplay systems, enemy behaviour, combat logic, UI scripting, and reusable audio implementation."
         ProjectLink="https://carbonwastaken.itch.io/the-dragon-thief"
-        ProjectRole1="Co-Developer, Game Designer"
-        ProjectTimeFrame="72 Hours"
         ProjectDemo="https://www.youtube.com/embed/Wy2GrS3enoI?si=7U66mKbePMjcNcau"
-        Desc1="The Dragon Thief is a top-down roguelike dungeon crawler game that was made for MiniJam151: Dragons. It was made in collaboration with 
-        a fellow developer and friend, Eli."
-        Desc2='The limitation for this game jam ended up being "endless greed". We thought up ideas for games that contained elements of both
-        greed and dragons and ended up going with a dungeon crawler roguelike where you stole loot from dragons and hoarded it in your cave.'
-        Desc3='First, I got to work on the movement, combat, and enemy AI. For the movement, I took what I had already made for my other game "moveMINT"
-        and edited it to work in both the X and Y axis. Then, I took advantage of the unity animation system to add the states for the enemy AI. Finally, I added simple combat and health scripts
-        to both the enemies and the player to damage eachother in the attack animations.'
-        Desc4='With the core mechanics added, I worked on adding in the UI scripting and sound effects. In the past, implementing sound has always been a messy process 
-        for me that ends up adding lines to numerous scripts. In this project, I wanted to focus on making a sound manager that was not dependant on anything else, so I could reuse it
-        in future projects. This is much alike my UI script, that has every function I would need for a GUI. In the end, it turned out great! I am very proud of the audio in the game. '
-        Desc5="I would also like to thank Eli for creating the dungeon generation, shop, and player inventory system. With our development combined together, we
-        made a great team and got a lot done in a short time."
-        Gallery1={gallery1}
-        Gallery2={gallery2}
-        Gallery3={gallery3}
-        Gallery4={gallery4}
-        Gallery5={gallery5}
-        Gallery6={gallery6}
-        />
 
-      {/*Section 3: About Me*/}
+        ProjectType="Collaborative Game Jam Project"
+        ProjectEngine="Unity"
+        ProjectLanguage="C#"
+        ProjectTeamSize="2 Developers"
+        ProjectRole="Gameplay Programmer / Co-Developer"
+        ProjectTimeFrame="72 Hours"
+        BuildStatus="Completed submitted jam build"
 
-      {/*Section 4: Contact Me*/}
-      <Element name='contact'>
+        TechStack={[
+          'Unity',
+          'C#',
+          '2D Gameplay Systems',
+          'Enemy AI',
+          'Combat Logic',
+          'UI Scripting',
+          'Audio Systems',
+        ]}
+
+        Overview="The Dragon Thief is a top-down roguelike dungeon crawler built around the idea of stealing treasure from dragons and hoarding it in your cave. The project was created for MiniJam151 under a 72-hour time limit, which meant every system had to be scoped carefully and integrated quickly into a complete playable build."
+
+        Contributions={[
+          'Programmed player movement for top-down navigation using adapted logic from one of my earlier projects.',
+          'Implemented core combat and health behaviour for both the player and enemies.',
+          'Set up enemy AI behaviour using Unity’s animation system and state-based logic.',
+          'Built UI scripting to support gameplay readability and player feedback.',
+          'Created and integrated a reusable sound manager to avoid scattered one-off audio calls across many scripts.',
+          'Contributed to overall game design direction and how the main gameplay loop should feel during play.',
+        ]}
+
+        CollaborationNote="This project was created in collaboration with my friend Eli. My work focused on player movement, combat, enemy AI, UI scripting, and audio systems. Eli handled dungeon generation, the shop system, and the player inventory system."
+
+        ProgrammingConcepts={[
+          {
+            title: 'Object-Oriented Gameplay Scripting',
+            description:
+              'I separated player, enemy, combat, UI, and audio responsibilities into distinct scripts so that each system had a clear role and was easier to test and expand during the jam.',
+          },
+          {
+            title: 'State-Based Enemy Behaviour',
+            description:
+              'Enemy actions were tied to state changes and animation behaviour so that movement, attacking, and damage interactions felt readable and connected.',
+          },
+          {
+            title: 'Combat and Health Logic',
+            description:
+              'I implemented the core damage flow between player and enemies, making sure combat interactions triggered at the correct time within attack behaviour.',
+          },
+          {
+            title: 'Reusable Systems Design',
+            description:
+              'Instead of hard-coding sound effects directly into many unrelated scripts, I built a more reusable sound manager approach that I could carry into future projects.',
+          },
+          {
+            title: 'UI Programming and Feedback',
+            description:
+              'I used UI scripting to communicate gameplay information clearly to the player and support the overall usability of the experience.',
+          },
+          {
+            title: 'Rapid Integration Under Constraint',
+            description:
+              'Because this was a 72-hour jam, I had to prioritize systems that were lightweight, functional, and fast to integrate into one cohesive build.',
+          },
+        ]}
+
+        Challenges={[
+          {
+            challenge:
+              'My earlier movement code was built for a different project, so it needed to be adapted cleanly for top-down movement across both the X and Y axes.',
+            solution:
+              'I refactored the existing movement approach so it fit the needs of this project instead of rewriting everything from scratch, which saved time while still giving me a controller that worked for the jam.',
+          },
+          {
+            challenge:
+              'Enemy combat needed to feel readable and synchronized rather than just applying damage at arbitrary times.',
+            solution:
+              'I used Unity’s animation system and state setup so enemy behaviour and damage timing could connect more naturally to attack animations.',
+          },
+          {
+            challenge:
+              'Audio implementation had felt messy in some of my previous work because sound calls ended up spread across too many unrelated scripts.',
+            solution:
+              'I focused on making a more reusable sound manager that could centralize audio behaviour and give me a cleaner structure to reuse in future projects.',
+          },
+        ]}
+
+        CompletionLevel="This project reached the level of a completed game jam build with a full playable loop, integrated mechanics, and a clear game identity. While it was naturally limited by the 72-hour timeframe, it was more than a loose prototype and functioned as a finished submission."
+
+        PolishSummary="The build included working gameplay systems, integrated UI, audio feedback, enemy behaviour, and a consistent visual presentation. Within jam scope, the project felt complete enough to present externally and communicate a clear gameplay loop."
+
+        IntegratedSystems={[
+          'Player movement',
+          'Enemy AI',
+          'Combat interactions',
+          'Health and damage',
+          'UI feedback',
+          'Reusable audio management',
+          'Dungeon exploration loop',
+          'Loot and hoarding theme integration',
+        ]}
+
+        KnownLimitations="Because of the jam deadline, the project prioritized completing a polished core loop over building deeper long-term content or more scalable systems. Some decisions were made for speed and clarity rather than for maximum extensibility."
+
+        GameplayNote="In the gameplay footage, the main things to notice are the player movement, combat flow, enemy behaviour, UI readability, and the way the systems come together into a complete jam-ready gameplay loop."
+
+        CodeSamples={[
+          {
+            title: 'Code Sample Placeholder: Enemy State / Combat Logic',
+            code: `// Replace this with a real excerpt from your project
+if (distanceToPlayer <= attackRange && canAttack)
+{
+    currentState = EnemyState.Attacking;
+    animator.SetTrigger("Attack");
+}`,
+            notes: [
+              'Shows the transition into an enemy attack state.',
+              'Demonstrates how gameplay logic can connect to animation triggers.',
+              'A good final version would use a real excerpt from your Dragon Thief source files.',
+            ],
+          },
+          {
+            title: 'Code Sample Placeholder: Reusable Audio Manager',
+            code: `// Replace this with a real excerpt from your project
+public void PlaySound(AudioClip clip)
+{
+    if (clip == null) return;
+    audioSource.PlayOneShot(clip);
+}`,
+            notes: [
+              'Shows the idea of centralized audio playback.',
+              'Supports your explanation that you were aiming for cleaner, reusable sound handling.',
+              'This section will be much stronger once you paste in actual project code.',
+            ],
+          },
+        ]}
+
+        GalleryImages={[gallery1, gallery2, gallery3, gallery4, gallery5, gallery6]}
+
+        Reflection="This project reflects a solid level of confidence for me in gameplay scripting, combat logic, enemy behaviour, UI integration, and building reusable support systems under time pressure. It also represents growth in how I think about organizing systems so they stay cleaner and more reusable. Because the project was built under jam constraints, some systems were intentionally scoped for speed, but the final result still shows that I can implement and integrate multiple gameplay systems into a complete playable build."
+      />
+
+      <Element name="Contact">
         <div>
           <Footer />
         </div>

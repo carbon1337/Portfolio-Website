@@ -13,6 +13,7 @@ import DragonThief from './Pages/DragonThief.jsx';
 import TakinSouls from './Pages/TakinSouls.jsx';
 import BuffBee from './Pages/BuffBee.jsx';
 import HuntOfTheUndead from './Pages/HuntOfTheUndead.jsx';
+import WhileTheySleep from './Pages/WhileTheySleep.jsx';
 
 const theme = createTheme({
   palette: {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
   {
     path: "/Movemint",
     element: <Movemint />,
+  },
+  {
+    path: "/WhileTheySleep",
+    element: <WhileTheySleep />,
   },
   {
     path: "/DragonThief",
