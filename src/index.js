@@ -14,6 +14,8 @@ import TakinSouls from './Pages/TakinSouls.jsx';
 import BuffBee from './Pages/BuffBee.jsx';
 import HuntOfTheUndead from './Pages/HuntOfTheUndead.jsx';
 import WhileTheySleep from './Pages/WhileTheySleep.jsx';
+import AboutMe from './Pages/AboutMe.jsx';
+import SevenDeadlySpins from './Pages/SevenDeadlySpins.jsx';
 
 const theme = createTheme({
   palette: {
@@ -103,6 +105,14 @@ const router = createBrowserRouter([
   {
     path: "/HuntOfTheUndead",
     element: <HuntOfTheUndead />,
+  },
+  {
+    path: "/SevenDeadlySpins",
+    element: <SevenDeadlySpins />,
+  },
+  {
+    path: "/AboutMe",
+    element: <AboutMe />,
   },
 ]);
 

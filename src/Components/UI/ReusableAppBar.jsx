@@ -1,158 +1,263 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import {
-  Toolbar,
-  AppBar,
-  Container,
-  useScrollTrigger,
-  Typography,
-  Box,
-  Button,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  IconButton,
+    Toolbar,
+    AppBar,
+    Container,
+    useScrollTrigger,
+    Typography,
+    Box,
+    Button,
+    Drawer,
+    List,
+    ListItemButton,
+    ListItemText,
+    IconButton,
 } from '@mui/material';
-import {
-  Link as ScrollLink,
-  animateScroll as scroll,
-} from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
 import MenuIcon from '@mui/icons-material/Menu';
 
-function ReusableAppBar(props) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    // Your scroll event handlers
-  }, []);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
-  function ElevationScroll(props) {
+function ElevationScroll(props) {
     const { children } = props;
 
     const trigger = useScrollTrigger({
-      disableHysteresis: true,
-      threshold: 0,
+        disableHysteresis: true,
+        threshold: 0,
     });
 
     return React.cloneElement(children, {
-      elevation: trigger ? 6 : 0,
+        elevation: trigger ? 6 : 0,
     });
-  }
+}
 
-  const scrollToTop = () => {
-    scroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuart',
-    });
-  };
+ElevationScroll.propTypes = {
+    children: PropTypes.element.isRequired,
+};
 
-  const menuItems = [
-    { label: 'Home', to: "/" }, // Updated to use '/' for homepage
-    { label: 'Gameplay', to: 'Gameplay' },
-    { label: 'Description', to: 'Description' },
-    { label: 'Gallery', to: 'Gallery' },
-    { label: 'Contact', to: 'contact' },
-  ];
+function ReusableAppBar(props) {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  return (
-    <main>
-      <Container maxWidth="xl">
-        <ElevationScroll {...props}>
-          <AppBar
-            className="appbar"
-            elevation={0}
-            sx={{
-              bgcolor: 'background.main',
-              mb: 15,
-            }}
-          >
-            <Toolbar
-              sx={{
-                justifyContent: 'space-between',
-                marginBlock: 1,
-                mx: { xs: 5, lg: 40 },
-              }}
-            >
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen((prev) => !prev);
+    };
 
-              {/* Mobile Menu */}
-              <IconButton
-                color="inherit"
-                aria-label="open mobile menu"
-                edge="end"
-                onClick={toggleMobileMenu}
-                sx={{ display: { lg: 'none'}, px:"10%" }}
-              >
-                <MenuIcon sx={{color: "text.main"}}/>
-              </IconButton>
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false);
+    };
 
-              {/* Desktop Menu */}
-              <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
-                {menuItems.map((item, index) => (
-                  <ScrollLink
-                    key={index}
-                    activeClass="active"
-                    to={item.to}
-                    spy={true}
-                    smooth={true}
-                    offset={-50}
-                    duration={1000}
-                  >
-                    <Button onClick={item.to === '/' ? scrollToTop : closeMobileMenu}>
-                      <Typography
-                        variant="h6"
+    const menuItems = [
+        { label: 'Quick Facts', to: 'Hero' },
+        { label: 'Summary', to: 'Summary' },
+        { label: 'Media', to: 'Media' },
+        { label: 'Code Samples', to: 'CodeSamples' },
+        { label: 'Reflection', to: 'Reflection' },
+    ];
+
+    const navButtonSx = {
+  typography: 'h6',
+  color: 'text.link',
+  textTransform: 'none',
+  fontWeight: 500,
+  letterSpacing: '0.4px',
+  minWidth: 'auto',
+  px: 1.5,
+  position: 'relative',
+  borderRadius: '8px',
+
+  transition: 'all 0.2s ease',
+
+  // ✅ background hover (clean, subtle)
+  '&:hover': {
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    color: 'text.main',
+  },
+
+  // underline animation
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    left: 12,
+    right: 12,
+    bottom: 6,
+    height: '2px',
+    backgroundColor: 'currentColor',
+    transform: 'scaleX(0)',
+    transformOrigin: 'center',
+    transition: 'transform 0.28s ease',
+  },
+
+  '&:hover::after': {
+    transform: 'scaleX(1)',
+  },
+};
+
+    return (
+        <main>
+            <Container maxWidth="xl">
+                <ElevationScroll {...props}>
+                    <AppBar
+                        elevation={0}
                         sx={{
-                          fontSize: { xs: '1rem', lg: '1.2rem' },
-                          color: 'text.main',
+                            bgcolor: 'rgba(18, 17, 22, 0.78)',
+                            borderBottom: '1px solid rgba(255,255,255,0.08)',
+                            backdropFilter: 'blur(14px)',
                         }}
-                      >
-                        {item.label}
-                      </Typography>
-                    </Button>
-                  </ScrollLink>
-                ))}
-              </Box>
-            </Toolbar>
-          </AppBar>
-        </ElevationScroll>
-      </Container>
+                    >
+                        <Toolbar
+                            sx={{
+                                justifyContent: 'space-between',
+                                minHeight: '84px',
+                                px: { xs: 2, sm: 4, lg: 6 },
+                            }}
+                        >
+                            {/* Home */}
+                            <Button
+                                component={RouterLink}
+                                to="/"
+                                state={{ scrollToTop: true }}
+                                onClick={closeMobileMenu, () => window.scrollTo({ top: 0, behavior: 'instant' })}
+                                sx={{
+                                    p: 0,
+                                    minWidth: 'auto',
+                                    textTransform: 'none',
+                                    backgroundColor: 'transparent',
+                                    '&:hover': {
+                                        backgroundColor: 'transparent',
+                                    },
+                                }}
+                            >
+                                <Typography
+                                    variant="h6"
+                                    sx={{
+                                        color: 'text.main',
+                                        fontWeight: 700,
+                                        letterSpacing: '0.5px',
+                                    }}
+                                >
+                                    Home
+                                </Typography>
+                            </Button>
 
-      {/* Mobile Drawer Menu */}
-      <Drawer
-        anchor="top"
-        open={isMobileMenuOpen}
-        onClose={closeMobileMenu}
-        sx={{color: 'primary.main'}}
-      >
-        <List sx={{bgcolor:'background.main'}}>
-          {menuItems.map((item, index) => (
-            <ScrollLink
-              key={index}
-              activeClass="active"
-              to={item.to}
-              spy={true}
-              smooth={true}
-              offset={-50}
-              duration={1000}
+                            {/* Desktop Menu */}
+                            <Box
+                                sx={{
+                                    display: { xs: 'none', lg: 'flex' },
+                                    alignItems: 'center',
+                                    gap: 0.5,
+                                }}
+                            >
+                                {menuItems.map((item, index) => (
+                                    <ScrollLink
+  key={index}
+  activeClass="active"
+  to={item.to}
+  spy={true}
+  smooth={true}
+  offset={-50}
+  duration={1000}
+  style={{ textDecoration: 'none' }}
+>
+  <Box
+    sx={{
+      display: 'inline-block',
+
+      '&.active button': {
+        backgroundColor: 'rgba(255,255,255,0.08)',
+        color: 'text.main',
+      },
+    }}
+  >
+    <Button sx={navButtonSx}>
+      {item.label}
+    </Button>
+  </Box>
+</ScrollLink>
+                                ))}
+                            </Box>
+
+                            {/* Mobile Menu Button */}
+                            <IconButton
+                                aria-label="open mobile menu"
+                                onClick={toggleMobileMenu}
+                                sx={{
+                                    display: { xs: 'flex', lg: 'none' },
+                                    color: 'text.main',
+                                }}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                        </Toolbar>
+                    </AppBar>
+                </ElevationScroll>
+            </Container>
+
+            {/* Mobile Drawer */}
+            <Drawer
+                anchor="top"
+                open={isMobileMenuOpen}
+                onClose={closeMobileMenu}
+                PaperProps={{
+                    sx: {
+                        bgcolor: 'background.main',
+                        borderBottom: '1px solid rgba(255,255,255,0.08)',
+                    },
+                }}
             >
-              <ListItem button onClick={item.to === '/' ? scrollToTop : closeMobileMenu} sx={{bgcolor:'background.alt', border:2, borderColor: 'background.main'}}>
-                <ListItemText primary={item.label} sx={{color:'text.main'}}/>
-              </ListItem>
-            </ScrollLink>
-          ))}
-        </List>
-      </Drawer>
-    </main>
-  );
+                <List sx={{ pt: 2, pb: 2 }}>
+                    <ListItemButton
+                        component={RouterLink}
+                        to="/"
+                        state={{ scrollToTop: true }}
+                        onClick={closeMobileMenu}
+                        sx={{
+                            borderBottom: '1px solid rgba(255,255,255,0.06)',
+                        }}
+                    >
+                        <ListItemText
+                            primary="Home"
+                            primaryTypographyProps={{
+                                sx: {
+                                    color: 'text.main',
+                                    fontWeight: 600,
+                                },
+                            }}
+                        />
+                    </ListItemButton>
+
+                    {menuItems.map((item, index) => (
+                        <ScrollLink
+                            key={index}
+                            activeClass="active"
+                            to={item.to}
+                            spy={true}
+                            smooth={true}
+                            offset={-85}
+                            duration={800}
+                            onClick={closeMobileMenu}
+                            style={{ textDecoration: 'none', cursor: 'pointer' }}
+                        >
+                            <ListItemButton
+                                sx={{
+                                    borderBottom: '1px solid rgba(255,255,255,0.06)',
+                                }}
+                            >
+                                <ListItemText
+                                    primary={item.label}
+                                    primaryTypographyProps={{
+                                        sx: {
+                                            color: 'text.main',
+                                            fontWeight: 500,
+                                        },
+                                    }}
+                                />
+                            </ListItemButton>
+                        </ScrollLink>
+                    ))}
+                </List>
+            </Drawer>
+        </main>
+    );
 }
 
 export default ReusableAppBar;

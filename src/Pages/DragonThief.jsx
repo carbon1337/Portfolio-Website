@@ -12,7 +12,7 @@ import gallery3 from '../Assets/Images/Dragon Thief 3.jpg';
 import gallery4 from '../Assets/Images/Dragon Thief 4.jpg';
 import gallery5 from '../Assets/Images/Dragon Thief 5.jpg';
 import gallery6 from '../Assets/Images/Dragon Thief 6.jpg';
-import HeroGif from '../Assets/Gifs/Projects.gif';
+import HeroGif from '../Assets/Gifs/DragonThiefHero.gif';
 
 function DragonThief() {
   return (
@@ -38,6 +38,7 @@ function DragonThief() {
         TechStack={[
           'Unity',
           'C#',
+          'PlasticSCM/Unity Version Control',
           '2D Gameplay Systems',
           'Enemy AI',
           'Combat Logic',
@@ -133,31 +134,81 @@ function DragonThief() {
 
         CodeSamples={[
           {
-            title: 'Code Sample Placeholder: Enemy State / Combat Logic',
-            code: `// Replace this with a real excerpt from your project
-if (distanceToPlayer <= attackRange && canAttack)
-{
-    currentState = EnemyState.Attacking;
-    animator.SetTrigger("Attack");
-}`,
+            title: 'Top-Down 2D movement with acceleration and decceleration',
+            code: `private void HandleMovement() 
+    {
+        float targetSpeedX = horizontal * Data.moveSpeed;
+        float targetSpeedY = vertical * Data.moveSpeed;
+
+        #region Calculate AccelRate
+        float accelRateX;
+        float accelRateY;
+
+        // Gets an acceleration value based on if we are accelerating or trying to decelerate.
+        accelRateX = (Mathf.Abs(targetSpeedX) > 0.01f) ? Data.runAccelAmount : Data.runDeccelAmount;
+        accelRateY = (Mathf.Abs(targetSpeedY) > 0.01f) ? Data.runAccelAmount : Data.runDeccelAmount;
+        #endregion
+
+        // Calculate difference between current velocity and desired velocity
+        float speedDifX = targetSpeedX - rb.velocity.x;
+        float speedDifY = targetSpeedY - rb.velocity.y;
+
+        // Calculate force along x-axis and y-axis to apply to the player
+        float movementX = speedDifX * accelRateX;
+        float movementY = speedDifY * accelRateY;
+
+        rb.AddForce(new Vector2(movementX, movementY), ForceMode2D.Force);
+    }`,
             notes: [
-              'Shows the transition into an enemy attack state.',
-              'Demonstrates how gameplay logic can connect to animation triggers.',
-              'A good final version would use a real excerpt from your Dragon Thief source files.',
+              'Shows the function that handles that handles the actual movement of the player',
+              'Utilizes input values from the Input System',
+              'For game feel I decided to utilize and acceleration and decceleration I was working on from a 3D FPS project, repurposed to work with top-down 2D controls.',
             ],
           },
           {
-            title: 'Code Sample Placeholder: Reusable Audio Manager',
-            code: `// Replace this with a real excerpt from your project
-public void PlaySound(AudioClip clip)
-{
-    if (clip == null) return;
-    audioSource.PlayOneShot(clip);
-}`,
+            title: 'Enemy State Machine: Moving Behaviour',
+            code: `    //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        //Freeze animator when player dies
+        if(GameManager.Instance.playerIsDead) 
+        {
+            animator.SetBool("canAttack", false);
+            animator.SetBool("canMove", false);
+        }
+
+        //Ensure enemy is looking at the player
+        enemyManager.LookAtPlayer();
+
+        //Offset on Y axis so the dragon is "flying" above target
+        Vector3 offset = new Vector3(0f, 4f, 0f);
+
+        //Find target (player) with offset accounted for
+        Vector2 target = new Vector2(player.position.x, player.position.y - offset.y);
+        Vector2 newPos = Vector2.MoveTowards(rb.position, target, Data.movementSpeed * Time.fixedDeltaTime);
+
+        //Move towards the new pos(target)
+        rb.MovePosition(newPos);
+
+        //Vector2 for the center of the dragon with the offset accounted for
+        Vector2 circleCenter = (Vector2)animator.transform.position + (Vector2)offset;
+
+        // Use Physics2D.OverlapCircle to check for colliders within the detection radius
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(circleCenter, Data.attackRange);
+
+        foreach (Collider2D collider in colliders)
+        {
+            // Check if the collider is the player, attack player
+            if (collider.transform == player)
+            {
+                animator.SetTrigger("Attack");
+            }
+        }
+    }`,
             notes: [
-              'Shows the idea of centralized audio playback.',
-              'Supports your explanation that you were aiming for cleaner, reusable sound handling.',
-              'This section will be much stronger once you paste in actual project code.',
+              'Used state machines with Unitys animator to create behaviours for idle, attack, and movement.',
+              'Snippet is of the movement state on update.',
+              'Simple Setup but works well for modular adjustments in the future.',
             ],
           },
         ]}

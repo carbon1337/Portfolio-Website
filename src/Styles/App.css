@@ -50,6 +50,25 @@ body {
   max-height: 100%;
 }
 
+/* Code block scrollbar only */
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: #2a2a35;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: #3a3a48;
+}
+
 .project-container {
   position: relative;
   overflow: hidden;

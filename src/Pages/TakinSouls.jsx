@@ -11,6 +11,7 @@ import gallery2 from '../Assets/Images/googins screenshot 2.png';
 import gallery3 from '../Assets/Images/googins menu.png';
 import gallery4 from '../Assets/Images/Googins 1.jpg';
 import gallery5 from '../Assets/Images/Googins 2.jpg';
+import HeroGif from '../Assets/Gifs/GooginsHero.gif';
 
 function TakinSouls() {
   return (
@@ -19,6 +20,7 @@ function TakinSouls() {
 
       <ProjectTemplate
         CoverImageSRC={CoverImage}
+        HeroGif={HeroGif}
         ProjectTitle="Takin' Souls"
         ProjectSummary="A 2D endless runner inspired by arcade games and the style of the Chrome dino runner. This project helped me practice gameplay simplicity, obstacle generation, pacing, replayability, and the challenges of scoping a short arcade-style game."
         ProjectLink="https://carbonwastaken.itch.io/takin-souls"

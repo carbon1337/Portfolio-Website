@@ -6,6 +6,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 function ProjectTemplate(props) {
   const settings = {
     dots: false,
@@ -67,7 +70,7 @@ function ProjectTemplate(props) {
   return (
     <main>
       {/* Section 1: Hero */}
-      <Element name="Home">
+      <Element name="Hero">
         <Box
           sx={{
             position: 'relative',
@@ -525,7 +528,7 @@ function ProjectTemplate(props) {
             </Typography>
             {underline}
 
-            <Container maxWidth="lg">
+            <Container maxWidth="xl">
               <Grid container spacing={3}>
                 {props.CodeSamples.map((sample, index) => (
                   <Grid item xs={12} md={6} key={index}>
@@ -541,22 +544,30 @@ function ProjectTemplate(props) {
                         {sample.title}
                       </Typography>
 
-                      <Box
-                        component="pre"
-                        sx={{
-                          bgcolor: '#0d0d12',
-                          color: 'text.main',
-                          p: 2,
-                          borderRadius: 2,
-                          overflowX: 'auto',
+                      <SyntaxHighlighter
+                        language="csharp"
+                        style={vscDarkPlus}
+                        customStyle={{
+                          margin: 0,
+                          padding: '16px',
+                          borderRadius: '12px',
+                          background: '#0d0d12',
                           fontSize: '0.9rem',
                           lineHeight: 1.6,
-                          mb: 2,
                           border: '1px solid rgba(255,255,255,0.06)',
+                          overflowX: 'auto',
+
+                          scrollbarWidth: 'thin', // Firefox
+                          scrollbarColor: '#2a2a35 transparent',
+                        }}
+                        codeTagProps={{
+                          style: {
+                            fontFamily: 'Fira Code, monospace',
+                          },
                         }}
                       >
-                        <code>{sample.code}</code>
-                      </Box>
+                        {sample.code}
+                      </SyntaxHighlighter>
 
                       {sample.notes?.map((note, noteIndex) => (
                         <Typography

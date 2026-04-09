@@ -6,8 +6,6 @@ import {
   Box,
   Button,
   Container,
-  Grid,
-  useScrollTrigger,
   AppBar,
   Toolbar,
   IconButton,
@@ -15,7 +13,8 @@ import {
   List,
   ListItem,
   ListItemText,
-  Link as MuiLink
+  Link as MuiLink,
+  useScrollTrigger,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -23,14 +22,20 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Link as ScrollLink, Element, Events, scrollSpy } from 'react-scroll';
 
 import Footer from '../Components/Layout/Footer';
-import ProjectCarousel from '../Components/Projects/ProjectCarousel';
+import ProjectCarousel from '../Components/Layout/ProjectCarousel';
 
 // Images
-import AboutImage from '../Assets/Images/pfp2.png';
 import HeroGif from '../Assets/Gifs/Projects.gif';
+
+import movemint from '../Assets/Images/movemint logo.png';
+import DragonThief from '../Assets/Images/Dragon Thief Thumbnail.png';
+import TakinSouls from '../Assets/Images/takin souls logo.png';
+import BuffBee from '../Assets/Images/grah.png';
+import SevenDeadlySpins from '../Assets/Images/SevenDeadlySpins.png';
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     Events.scrollEvent.register('begin', (to, element) => {
@@ -58,7 +63,7 @@ function App() {
   };
 
   const handleSetActive = (to) => {
-    console.log(to);
+    setActiveSection(to);
   };
 
   function ElevationScroll({ children }) {
@@ -72,12 +77,91 @@ function App() {
     });
   }
 
+  const personalProjects = [
+    {
+      title: 'While They Sleep',
+      desc: 'A 3D horror game originally made for PegJam 2026. Still in development.',
+      image: movemint,
+      link: './WhileTheySleep',
+    },
+    {
+      title: 'moveMINT',
+      desc: 'A short and sweet 2D Platformer focused on movement mechanics.',
+      image: movemint,
+      link: './Movemint',
+    },
+    {
+      title: 'HuntOfTheUndead',
+      desc: 'A FPS wave-based zombies game inspired by Call Of Duty. Created as my capstone project for KEC IDM program.',
+      image: movemint,
+      link: './HuntOfTheUndead',
+    },
+  ];
+
+  const gameJamProjects = [
+    {
+      title: 'Seven Deadly Spins',
+      desc: 'A gambling-themed FPS game created for PegJam2025 in collaboration with Eli Hienrichs.',
+      image: SevenDeadlySpins,
+      link: './SevenDeadlySpins',
+    },
+    {
+      title: 'The Dragon Thief',
+      desc: 'A Top-Down Roguelike Dungeon-Crawler made for MiniJam151: Dragons',
+      image: DragonThief,
+      link: './DragonThief',
+    },
+    {
+      title: "Takin' Souls",
+      desc: 'An endless running game inspired by legendary endurance athlete David Goggins.',
+      image: TakinSouls,
+      link: './TakinSouls',
+    },
+    {
+      title: 'Buff Bee',
+      desc: 'A 3D Platformer made for PegJam 2024.',
+      image: BuffBee,
+      link: './BuffBee',
+    },
+  ];
+
   const menuItems = [
     { label: 'Home', to: 'home' },
     { label: 'Projects', to: 'projects' },
-    { label: 'About Me', to: 'about' },
     { label: 'Contact', to: 'contact' },
+    { label: 'About Me', to: 'about' },
   ];
+
+  const navButtonSx = {
+    typography: 'h6',
+    textTransform: 'none',
+    fontWeight: 500,
+    letterSpacing: '0.4px',
+    minWidth: 'auto',
+    px: 1.5,
+    position: 'relative',
+    borderRadius: '8px',
+    transition: 'all 0.2s ease',
+    '&:hover': {
+      backgroundColor: 'rgba(255,255,255,0.06)',
+      color: 'text.main',
+    },
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      left: 12,
+      right: 12,
+      bottom: 6,
+      height: '2px',
+      backgroundColor: 'currentColor',
+      transform: 'scaleX(0)',
+      transformOrigin: 'center',
+      transition: 'transform 0.28s ease',
+    },
+    '&:hover::after': {
+      transform: 'scaleX(1)',
+    },
+  };
 
   const socialLinkSx = {
     position: 'relative',
@@ -141,43 +225,56 @@ function App() {
               </IconButton>
 
               {/* Desktop Menu */}
-              <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
-                {menuItems.map((item, index) => (
-                  <ScrollLink
-                    key={index}
-                    activeClass="active"
-                    to={item.to}
-                    spy={true}
-                    smooth={true}
-                    offset={-50}
-                    duration={1000}
-                    onSetActive={handleSetActive}
-                  >
+              <Box
+                sx={{
+                  display: { xs: 'none', lg: 'flex' },
+                  alignItems: 'center',
+                  gap: 0.5,
+                }}
+              >
+                {menuItems.map((item, index) =>
+                  item.label === 'About Me' ? (
                     <Button
+                      key={index}
+                      component={RouterLink}
+                      to="/AboutMe"
+                      onClick={() => window.scrollTo(0, 0)}
                       sx={{
-                        borderBottom:1,
-                        borderColor:'text.link',
-                        mx:2,
-                        px:2,
-                        variant:'text',
-                        typography:'h1',
-                        '&:hover': {
-                          backgroundColor: 'primary.light',
-                        },
+                        ...navButtonSx,
+                        color: 'text.link',
                       }}
                     >
-                      <Typography
-                        variant="button"
+                      {item.label}
+                    </Button>
+                  ) : (
+                    <ScrollLink
+                      key={index}
+                      to={item.to}
+                      spy={true}
+                      smooth={true}
+                      offset={-85}
+                      duration={800}
+                      onSetActive={handleSetActive}
+                      style={{ textDecoration: 'none', cursor: 'pointer' }}
+                    >
+                      <Button
                         sx={{
-                          fontSize: { xs: '1rem', lg: '1.2rem' },
-                          color: 'primary.main',
+                          ...navButtonSx,
+                          backgroundColor:
+                            activeSection === item.to
+                              ? 'rgba(255,255,255,0.08)'
+                              : 'transparent',
+                          color:
+                            activeSection === item.to
+                              ? 'text.main'
+                              : 'text.link',
                         }}
                       >
                         {item.label}
-                      </Typography>
-                    </Button>
-                  </ScrollLink>
-                ))}
+                      </Button>
+                    </ScrollLink>
+                  )
+                )}
               </Box>
             </Toolbar>
           </AppBar>
@@ -187,20 +284,17 @@ function App() {
       {/* Mobile Drawer Menu */}
       <Drawer anchor="top" open={isMobileMenuOpen} onClose={closeMobileMenu}>
         <List sx={{ bgcolor: 'background.main' }}>
-          {menuItems.map((item, index) => (
-            <ScrollLink
-              key={index}
-              activeClass="active"
-              to={item.to}
-              spy={true}
-              smooth={true}
-              offset={-50}
-              duration={1000}
-              onSetActive={handleSetActive}
-            >
+          {menuItems.map((item, index) =>
+            item.label === 'About Me' ? (
               <ListItem
+                key={index}
                 button
-                onClick={closeMobileMenu}
+                component={RouterLink}
+                to="/AboutMe"
+                onClick={() => {
+                  closeMobileMenu();
+                  window.scrollTo(0, 0);
+                }}
                 sx={{
                   borderColor: 'background.main',
                   bgcolor: 'background.alt',
@@ -208,10 +302,56 @@ function App() {
                   boxSizing: 'border-box',
                 }}
               >
-                <ListItemText primary={item.label} sx={{ color: 'text.main' }} />
+                <ListItemText
+                  primary={item.label}
+                  primaryTypographyProps={{
+                    sx: {
+                      color: 'text.main',
+                      fontWeight: 500,
+                    },
+                  }}
+                />
               </ListItem>
-            </ScrollLink>
-          ))}
+            ) : (
+              <ScrollLink
+                key={index}
+                to={item.to}
+                spy={true}
+                smooth={true}
+                offset={-85}
+                duration={800}
+                onSetActive={handleSetActive}
+                onClick={closeMobileMenu}
+                style={{ textDecoration: 'none', cursor: 'pointer' }}
+              >
+                <ListItem
+                  button
+                  sx={{
+                    borderColor: 'background.main',
+                    bgcolor:
+                      activeSection === item.to
+                        ? 'rgba(255,255,255,0.08)'
+                        : 'background.alt',
+                    border: 2,
+                    boxSizing: 'border-box',
+                  }}
+                >
+                  <ListItemText
+                    primary={item.label}
+                    primaryTypographyProps={{
+                      sx: {
+                        color:
+                          activeSection === item.to
+                            ? 'text.main'
+                            : 'text.link',
+                        fontWeight: 500,
+                      },
+                    }}
+                  />
+                </ListItem>
+              </ScrollLink>
+            )
+          )}
         </List>
       </Drawer>
 
@@ -324,8 +464,9 @@ function App() {
                   mb: 2,
                 }}
               >
-                I’m a Unity developer from Winnipeg focused on building immersive gameplay
-                systems, player interaction, and experiences that feel memorable to play.
+                I’m a Unity developer from Winnipeg focused on building immersive
+                gameplay systems, player interaction, and experiences that feel
+                memorable to play.
               </Typography>
 
               <Typography
@@ -336,8 +477,9 @@ function App() {
                   mb: 5,
                 }}
               >
-                I’m especially interested in the small details that make games feel great
-                through movement, feedback, tension, atmosphere, and polish.
+                I’m especially interested in the small details that make games
+                feel great through movement, feedback, tension, atmosphere, and
+                polish.
               </Typography>
 
               <Box
@@ -358,7 +500,7 @@ function App() {
                   underline="none"
                   sx={socialLinkSx}
                 >
-                  <Typography variant='h6' component="span">
+                  <Typography variant="h6" component="span">
                     GitHub
                   </Typography>
                 </MuiLink>
@@ -374,7 +516,7 @@ function App() {
                   underline="none"
                   sx={socialLinkSx}
                 >
-                  <Typography variant='h6' component="span">
+                  <Typography variant="h6" component="span">
                     Itch.io
                   </Typography>
                 </MuiLink>
@@ -388,7 +530,7 @@ function App() {
                   underline="none"
                   sx={socialLinkSx}
                 >
-                  <Typography variant='h6' component="span">
+                  <Typography variant="h6" component="span">
                     Email
                   </Typography>
                 </MuiLink>
@@ -403,147 +545,55 @@ function App() {
         <Box
           sx={{
             width: '100%',
-            height: 'auto',
-            bgcolor: 'background.alt',
-            textAlign: 'center',
-            boxSizing: 'border-box',
-            overflowX: 'hidden',
-          }}
-        >
-          <Typography variant="h3" sx={{ color: 'text.main', pt: 10 }}>
-            Projects
-          </Typography>
-
-          <Box
-            className="centered"
-            sx={{
-              borderTop: 2.5,
-              borderColor: 'primary.main',
-              mt: 2,
-              width: 400,
-              maxWidth: '90%',
-              pb: 10,
-            }}
-          />
-
-          <Container maxWidth="lg" sx={{ pb: 8 }}>
-            <ProjectCarousel />
-          </Container>
-        </Box>
-      </Element>
-
-      {/* Section 3: About Me */}
-      <Element name="about">
-        <Box
-          sx={{
-            width: '100%',
-            height: 'auto',
-            minHeight: 900,
             bgcolor: 'background.main',
-            textAlign: 'center',
-            p: 3,
             boxSizing: 'border-box',
             overflowX: 'hidden',
+            py: 10,
           }}
         >
-          <Typography variant="h3" sx={{ color: 'text.main', pt: 10 }}>
-            About Me
-          </Typography>
-
           <Box
-            className="centered"
             sx={{
-              borderTop: 2.5,
-              borderColor: 'primary.main',
-              mt: 1,
-              width: 400,
-              maxWidth: '90%',
-              pb: 5,
+              width: '100%',
+              maxWidth: '1400px',
+              mx: 'auto',
+              px: { xs: 2, sm: 4, md: 6 },
             }}
-          />
+          >
+            <Typography
+              variant="h3"
+              sx={{
+                color: 'white',
+                fontWeight: 800,
+                mb: 1,
+                textAlign: 'left',
+              }}
+            >
+              Projects
+            </Typography>
 
-          <Container maxWidth="md">
-            <Grid justifyContent="center" container spacing={4} sx={{ my: 3 }}>
-              <Grid item xs={12} md={5}>
-                <Box
-                  sx={{
-                    width: '100%',
-                    borderRadius: 3,
-                    height: 'auto',
-                    bgcolor: 'background.alt',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <div className="centered-container">
-                    <img className="about-image" src={AboutImage} alt="Riley Clarke" />
-                  </div>
-                </Box>
+            <Typography
+              variant="h6"
+              sx={{
+                color: 'rgba(255,255,255,0.7)',
+                mb: 6,
+                textAlign: 'left',
+                maxWidth: '800px',
+              }}
+            >
+              A collection of polished personal work and fast-paced game jam
+              projects.
+            </Typography>
 
-                <Box
-                  sx={{
-                    width: '100%',
-                    borderRadius: 3,
-                    mt: 2.5,
-                    minHeight: 175,
-                    bgcolor: 'background.alt',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <div className="centered-container">
-                    <Typography sx={{ px: 3, py: 2, color: 'text.main' }}>
-                      My favourite games:
-                      <ul>
-                        <li>Elden Ring</li>
-                        <li>CS:GO</li>
-                        <li>Minecraft</li>
-                        <li>Rust</li>
-                      </ul>
-                    </Typography>
-                  </div>
-                </Box>
-              </Grid>
+            <ProjectCarousel
+              title="Personal Projects"
+              projects={personalProjects}
+            />
 
-              <Grid item xs={12} md={7}>
-                <Box
-                  sx={{
-                    width: '100%',
-                    borderRadius: 3,
-                    minHeight: 600,
-                    bgcolor: 'background.alt',
-                    textAlign: 'left',
-                  }}
-                >
-                  <Typography sx={{ px: 3, py: 2, color: 'text.main' }}>
-                    Hello! I'm Riley Clarke, a 17 year old Game Developer based in Winnipeg, Canada.
-                  </Typography>
-
-                  <Typography sx={{ px: 3, pb: 2, color: 'text.main' }}>
-                    I am currently attending my senior year of high school, majoring in Interactive Digital Media.
-                    While in the IDM course, I've gained experience developing games both in small teams and working solo.
-                  </Typography>
-
-                  <Typography sx={{ px: 3, pb: 2, color: 'text.main' }}>
-                    To go with my developing, I've picked up some skills to aid my game design process. I've studied graphic design, music production, and sound design.
-                    My dream is to one day combine all of my skills to create a game solely by myself.
-                  </Typography>
-
-                  <Typography sx={{ px: 3, pb: 2, color: 'text.main' }}>
-                    I am always interested in expanding my skillset, and learning new techniques.
-                    Recently, I've been participating in game jams to sharpen my skills in coding and design.
-                  </Typography>
-
-                  <Typography sx={{ px: 3, pb: 2, color: 'text.main' }}>
-                    As a kid I always loved videogames. I got my first computer when I was 10 years old and have been playing ever since.
-                    To be able to contribute to what was a huge portion of my childhood is a huge passion for me.
-                  </Typography>
-
-                  <Typography sx={{ px: 3, pb: 2, color: 'text.main' }}>
-                    I hope that one day a game that I make inspires other kids the same way that I was.
-                  </Typography>
-                </Box>
-              </Grid>
-            </Grid>
-          </Container>
+            <ProjectCarousel
+              title="Game Jam Games"
+              projects={gameJamProjects}
+            />
+          </Box>
         </Box>
       </Element>
 

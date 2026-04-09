@@ -35,6 +35,7 @@ function BuffBee() {
         TechStack={[
           'Unity',
           'C#',
+          'Unity Version Control',
           '3D Platforming',
           'Team Collaboration',
           'Rapid Prototyping',

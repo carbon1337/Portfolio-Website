@@ -6,6 +6,7 @@ import Footer from '../Components/Layout/Footer';
 import ProjectTemplate from '../Components/Projects/ProjectTemplate';
 
 import CoverImage from '../Assets/Images/movemint cover.jpg';
+import HeroGif from '../Assets/Gifs/MovemintHero.gif';
 import gallery1 from '../Assets/Images/movemint cover.jpg';
 import gallery2 from '../Assets/Images/Before After URP.png';
 import gallery3 from '../Assets/Images/movemint Screenshot 1.jpg';
@@ -19,6 +20,7 @@ function Movemint() {
 
       <ProjectTemplate
         CoverImageSRC={CoverImage}
+        HeroGif={HeroGif}
         ProjectTitle="moveMINT"
         ProjectSummary="A solo-developed 2D platformer built as a focused movement project. It highlights physics-based movement, jump buffering, coyote time, momentum preservation, sliding, timing systems, and replayable platforming design."
         ProjectLink="https://carbonwastaken.itch.io/movemint"
@@ -129,15 +131,109 @@ function Movemint() {
 
         CodeSamples={[
           {
-            title: 'Code Sample Placeholder: Jump Buffer / Coyote Time',
-            code: `// Replace with a real excerpt from moveMINT
-if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
-{
-    Jump();
-}`,
+            title: 'Player Movement with Momentum preservation',
+            code: `private void HandleMovement() 
+    {
+        //Input system value * speed in playerdata
+        float targetSpeed = horizontal * Data.runMaxSpeed;
+
+        #region Calculate AccelRate
+		float accelRate;
+
+		//Checks if the target speed is positive, applies accel or deccel accordingly
+        //If not grounded, also factor the air accel/deccel rates
+		if (IsGrounded()) 
+        {
+			accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? Data.runAccelAmount : Data.runDeccelAmount;
+        } else 
+        {
+			accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? Data.runAccelAmount * Data.accelInAir : Data.runDeccelAmount * Data.deccelInAir;
+        }
+		#endregion
+
+        #region Conserve Momentum
+        //Dont slow down player if they are moving in their desired direction but at a greater speed than max
+		if(Data.doConserveMomentum && Mathf.Abs(rb.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && !IsGrounded())
+		{
+			//Prevent any deceleration from happening, or in other words conserve are current momentum
+			accelRate = 0f; 
+		}
+		#endregion
+
+		//Calculate difference between current velocity and desired velocity
+		float speedDif = targetSpeed - rb.velocity.x;
+
+		//Calculate force along x-axis to apply to thr player
+		float movement = speedDif * accelRate;
+
+		rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
+
+    }`,
             notes: [
-              'This would be a strong real sample because it demonstrates polished platforming logic.',
-              'A real excerpt here would directly support your explanation of movement feel and responsiveness.',
+              'Player movement function with acceleration, decceleration, and Momentum preservation. When paired with the sliding function in the game it allows you to build up crazy speeds.',
+              'Creates an excellent game feel for both casual players, and those who want to speedrun.',
+            ],
+          },
+          {
+            title: 'Player Jump with coyote timing and jump buffer',
+            code: `private void HandleJump() 
+    {
+        //Reset jump variables when grounded. If not Grounded, start the coyote timer.
+        if(IsGrounded()) 
+        {
+            coyoteTimeCounter = coyoteTime;
+
+            releasedJump = false;
+        } else 
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
+        //If you press the jump button, start the jump buffer counter, and reset the bools to detect if you have jumped.
+        //If you aren't pressing jump, start the jump buffer timer.
+        if(performedJump) 
+        {
+            jumpBufferCounter = jumpBufferTime;
+
+            performedJump = false;
+            releasedJump = false;
+        } else 
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+
+        //If the Jump buffer and coyote timer haven't reached zero, perform a jump.
+        if(jumpBufferCounter > 0 && coyoteTimeCounter > 0) 
+        {
+            rb.velocity = new Vector2(rb.velocity.x, Data.jumpingPower);
+
+            jumpBufferCounter = 0;
+        }
+
+        //If you are on the wall and you have performed a jump, wall jump.
+        if(jumpBufferCounter > 0 && IsOnWall()) 
+        {
+            float wallJumpDirection = isFacingRight ? -1f : 1f;
+            rb.velocity = new Vector2(Data.wallJumpingPower * wallJumpDirection, Data.jumpingPower);
+        }
+
+        //If you released a jump before you hit your peak, multiply the yVelocity to descend.
+        if(releasedJump && rb.velocity.y > 0f) 
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+
+            coyoteTimeCounter = 0f;
+        }
+
+
+        //If you are touching the wall but not grounded, reduce your fall speed. (Slide down the wall)
+        if(IsOnWall() && rb.velocity.y != 0) 
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.8f);
+        }
+    }`,
+            notes: [
+              ''
             ],
           },
         ]}
